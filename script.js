@@ -13,9 +13,10 @@ xhr.open('GET', 'https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=Ful
 xhr.setRequestHeader('x-rapidapi-key', 'b4e3a50847msha5e7f56d00b94dcp1410d3jsn44b88bda6122');
 xhr.setRequestHeader('x-rapidapi-host', 'anime-db.p.rapidapi.com');
 
+xhr.responseType = 'json';
+
 xhr.send(data);
 
-xhr.responseType = 'json';
 
 xhr.addEventListener('load', function () {
 	if (this.status === 200) {
