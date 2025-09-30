@@ -14,3 +14,5 @@ xhr.setRequestHeader('x-rapidapi-key', 'abc958223amsh3603b2a056c3ecep15863fjsn87
 xhr.setRequestHeader('x-rapidapi-host', 'anime-db.p.rapidapi.com');
 
 xhr.send(data);
+
+console.log(xhr);
