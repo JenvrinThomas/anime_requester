@@ -1,6 +1,9 @@
 .carte{
     align-self: center;
     justify-self: center;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 1em;
 }
 
 .contenu{
