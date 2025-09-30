@@ -3,6 +3,7 @@ const API_KEY = prompt("Entrez votre clé API RapidAPI :");
 
 if (!API_KEY) {
     alert("Vous devez fournir une clé API !");
+	API_KEY = prompt("Entrez votre clé API RapidAPI :");
 } else {
     const data = null;
     const xhr = new XMLHttpRequest();
