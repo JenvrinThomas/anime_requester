@@ -1,0 +1,33 @@
+.carte{
+    align-self: center;
+    justify-self: center;
+}
+
+.contenu{
+    justify-self: center;
+}
+
+#titre{
+    font-size: 2.5em;
+    font-family: rockwell;
+}
+
+#synopsis{
+    font-size: 1.5em;
+    font-family: candara;
+}
+
+#categorie-genre{
+    font-size: 1.5em;
+    font-family: verdana;
+}
+
+#classement{
+    font-size: 3em;
+    font-family: impact;
+}
+
+#nb-episodes{
+    font-size: 1.5em;
+    font-family: arial;
+}
