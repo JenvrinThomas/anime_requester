@@ -1,0 +1,12 @@
+# Ignorer le fichier contenant la clé API
+config.js
+
+# Node.js / JS typiques
+node_modules/
+dist/
+.env
+npm-debug.log
+yarn-error.log
+
+# Systèmes
+.DS_Store

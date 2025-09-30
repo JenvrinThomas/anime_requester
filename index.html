@@ -1,55 +1,79 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Anime Requester</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
+
 <body>
   <header>
     <h1>Anime Requester</h1>
+    <button class="btn-flottant" data-theme-toggler>
+      <em class="fa-solid fa-moon icon-theme"></em>
+      <em class="fa-solid fa-sun icon-theme"></em>
+    </button>
   </header>
 
   <main>
-    
+
     <section id="search-section">
       <h2>Rechercher un anime</h2>
       <form id="search-form">
-        
+
         <label for="anime-name">Nom :</label>
         <input type="text" id="anime-name" name="anime-name" placeholder="Ex: Naruto">
 
-      
+
         <label for="anime-id">ID :</label>
         <input type="number" id="anime-id" name="anime-id" placeholder="Ex: 123">
 
-       
+
         <label for="anime-rank">Classement :</label>
         <input type="number" id="anime-rank" name="anime-rank" placeholder="Ex: 1">
 
         <fieldset>
           <legend>Genres :</legend>
-          <label><input type="checkbox" name="genre" value="action"> Action</label>
-          <label><input type="checkbox" name="genre" value="comedy"> Comédie</label>
-          <label><input type="checkbox" name="genre" value="drama"> Drame</label>
-          <label><input type="checkbox" name="genre" value="fantasy"> Fantastique</label>
-          <label><input type="checkbox" name="genre" value="romance"> Romance</label>
+
+          <label for="genre-action">
+            <input type="checkbox" id="genre-action" name="genre" value="action"> Action
+          </label>
+
+          <label for="genre-comedy">
+            <input type="checkbox" id="genre-comedy" name="genre" value="comedy"> Comédie
+          </label>
+
+          <label for="genre-drama">
+            <input type="checkbox" id="genre-drama" name="genre" value="drama"> Drame
+          </label>
+
+          <label for="genre-fantasy">
+            <input type="checkbox" id="genre-fantasy" name="genre" value="fantasy"> Fantastique
+          </label>
+
+          <label for="genre-romance">
+            <input type="checkbox" id="genre-romance" name="genre" value="romance"> Romance
+          </label>
         </fieldset>
 
-        
+
+
         <div class="form-buttons">
           <button type="submit">Rechercher</button>
           <button type="reset">Réinitialiser</button>
         </div>
       </form>
+
     </section>
 
-  
+
     <section id="results-section">
       <h2>Résultats</h2>
       <div id="results-container">
-       
+
       </div>
     </section>
   </main>
@@ -58,6 +82,8 @@
     <p>Projet Anime Requester – Les Warriors</p>
   </footer>
 
-  <script src="main.js" type="module"></script>
+  <script src="script.js" type="module"></script>
+  <script src="darkmode.js"></script>
 </body>
+
 </html>
