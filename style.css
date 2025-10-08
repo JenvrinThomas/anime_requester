@@ -1,45 +1,137 @@
+/* 🎨 Bouton flottant */
+.btn-flottant {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: var(--bg-color);
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.btn-flottant:hover {
+  background-color: var(--bg-color);
+}
+
+/* 🌞 & 🌙 Icônes Lune/Soleil */
+.btn-flottant .icon-theme {
+  position: absolute; /* superposées */
+  font-size: 20px;
+  color: var(--text-color);
+  transition: all 0.4s ease;
+}
+
+/* État par défaut : thème clair = lune visible */
+.btn-flottant .fa-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+.btn-flottant .fa-sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0);
+}
+
+/* Thème sombre : soleil visible, lune cachée */
+[data-theme="dark"] .btn-flottant .fa-moon {
+  opacity: 0;
+  transform: rotate(90deg) scale(0);
+}
+
+[data-theme="dark"] .btn-flottant .fa-sun {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* 🌞 Thème clair */
+[data-theme="light"] {
+  --bg-color: #f5f5f5;
+  --text-color: #222;
+  --header-bg: #164d84;
+  --header-text: #ffffff;
+  --form-bg: #ffffff;
+  --form-border: #ccc;
+  --input-bg: #ffffff;
+  --input-border: #ccc;
+  --card-bg: #ffffff;
+  --footer-bg: #164d84;
+  --footer-text: #ffffff;
+}
+
+/* 🌙 Thème sombre */
+[data-theme="dark"] {
+  --bg-color: #212121;
+  --text-color: #ececec;
+  --header-bg: #111;
+  --header-text: #ececec;
+  --form-bg: #2a2a2a;
+  --form-border: #555;
+  --input-bg: #333;
+  --input-border: #666;
+  --card-bg: #2a2a2a;
+  --footer-bg: #111;
+  --footer-text: #ececec;
+}
+
+/* Base */
+html {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
 
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f5f5f5;
-  color: #222;
 }
 
-
+/* 🏷️ Header avec h1 centré */
 header {
-  background-color: #2c3e50;
-  color: white;
-  padding: 1rem;
+  position: relative;
+  background-color: var(--header-bg);
+  color: var(--header-text);
+  padding: 2rem;
   text-align: center;
 }
 
 header h1 {
   margin: 0;
   font-size: 1.8rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
+/* 📌 Contenu principal */
 main {
   max-width: 900px;
   margin: 2rem auto;
   padding: 1rem;
 }
 
-
 h2 {
   margin-bottom: 1rem;
-  color: #2c3e50;
+  color: var(--text-color);
 }
 
-
+/* 🔍 Formulaire */
 #search-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  background: white;
+  background: var(--form-bg);
   padding: 1.5rem;
   border-radius: 10px;
+  border: 1px solid var(--form-border);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
@@ -50,14 +142,15 @@ h2 {
 #search-form input[type="text"],
 #search-form input[type="number"] {
   padding: 0.6rem;
-  border: 1px solid #ccc;
+  border: 1px solid var(--input-border);
   border-radius: 5px;
   font-size: 1rem;
+  background: var(--input-bg);
+  color: var(--text-color);
 }
 
-
 #search-form fieldset {
-  border: 1px solid #ccc;
+  border: 1px solid var(--form-border);
   border-radius: 8px;
   padding: 1rem;
 }
@@ -70,6 +163,7 @@ h2 {
   margin-right: 0.5rem;
 }
 
+/* 🔘 Boutons du formulaire */
 .form-buttons {
   display: flex;
   gap: 1rem;
@@ -103,6 +197,7 @@ h2 {
   background-color: #c0392b;
 }
 
+/* 📊 Résultats */
 #results-section {
   margin-top: 2rem;
 }
@@ -113,24 +208,23 @@ h2 {
   gap: 1rem;
 }
 
-
 .card {
-  background: white;
+  background: var(--card-bg);
   padding: 1rem;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-
+/* 📍 Footer */
 footer {
   text-align: center;
   padding: 1rem;
   margin-top: 2rem;
-  background-color: #2c3e50;
-  color: white;
+  background-color: var(--footer-bg);
+  color: var(--footer-text);
 }
 
-
+/* 📱 Responsive */
 @media (max-width: 600px) {
   #search-form {
     padding: 1rem;
