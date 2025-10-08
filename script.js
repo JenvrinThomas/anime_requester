@@ -1,7 +1,7 @@
 
 let API_KEY = prompt("Entrez votre clé API RapidAPI :");
 
-const titre = input.value.trim();
+const titre = document.getElementById('anime-name').value;
 
 if (!API_KEY) {
 	alert("Vous devez fournir une clé API !");
