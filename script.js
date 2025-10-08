@@ -29,11 +29,11 @@ if (!API_KEY) {
 
 xhr.addEventListener('load', function () {
 	if (this.status === 200) {
-		console.log(this.response);
+		console.log(this.responseText);
 	} else {
 		console.error('Erreur lors de la récupération des données');
 	}
 });
 
-console.log(xhr);
+console.log(xhr.responseText);
 
