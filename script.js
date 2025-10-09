@@ -1,4 +1,3 @@
-
 let API_KEY = prompt("Entrez votre clé API RapidAPI :");
 
 const titre = document.getElementById('anime-name').value;
@@ -17,7 +16,7 @@ if (!API_KEY) {
 				console.log('Réponse Anime DB:', response);
 
 				if (response.data && response.data.length > 0) {
-					const anime = response.data[0]; // premier anime
+					const anime = response.data[0]; 
 
 					// Mise à jour de la carte HTML
 					document.getElementById('titre').textContent = anime.title;
@@ -44,7 +43,7 @@ if (!API_KEY) {
 // === 2. Requête vers une autre API avec fetch ===
 let url = "https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=" + encodeURIComponent(titre) + "&genres=blabl&sortBy=ranking&sortOrder=asc";
 
-fetch(url)
+fetch(url, { headers: { 'x-rapidapi-key': API_KEY, 'x-rapidapi-host': 'anime-db.p.rapidapi.com' } })
 	.then(response => {
 		if (!response.ok) {
 			throw new Error('Erreur réseau');
