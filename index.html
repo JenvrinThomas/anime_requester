@@ -42,38 +42,38 @@
         <div id="input-rank" class="input-group" style="display:none;">
           <input type="number" id="anime-rank" name="anime-rank" min='0' placeholder="Ex : 1">
         </div>
-      
-
-      <fieldset>
-        <legend>Genres :</legend>
-
-        <label for="genre-action">
-          <input type="checkbox" id="genre-action" name="genre" value="action"> Action
-        </label>
-
-        <label for="genre-comedy">
-          <input type="checkbox" id="genre-comedy" name="genre" value="comedy"> Comédie
-        </label>
-
-        <label for="genre-drama">
-          <input type="checkbox" id="genre-drama" name="genre" value="drama"> Drame
-        </label>
-
-        <label for="genre-fantasy">
-          <input type="checkbox" id="genre-fantasy" name="genre" value="fantasy"> Fantastique
-        </label>
-
-        <label for="genre-romance">
-          <input type="checkbox" id="genre-romance" name="genre" value="romance"> Romance
-        </label>
-      </fieldset>
 
 
+        <fieldset>
+          <legend>Genres :</legend>
 
-      <div class="form-buttons">
-        <button type="submit">Rechercher</button>
-        <button type="reset">Réinitialiser</button>
-      </div>
+          <label for="genre-action">
+            <input type="checkbox" id="genre-action" name="genre" value="action"> Action
+          </label>
+
+          <label for="genre-comedy">
+            <input type="checkbox" id="genre-comedy" name="genre" value="comedy"> Comédie
+          </label>
+
+          <label for="genre-drama">
+            <input type="checkbox" id="genre-drama" name="genre" value="drama"> Drame
+          </label>
+
+          <label for="genre-fantasy">
+            <input type="checkbox" id="genre-fantasy" name="genre" value="fantasy"> Fantastique
+          </label>
+
+          <label for="genre-romance">
+            <input type="checkbox" id="genre-romance" name="genre" value="romance"> Romance
+          </label>
+        </fieldset>
+
+
+
+        <div class="form-buttons">
+          <button type="submit">Rechercher</button>
+          <button type="reset">Réinitialiser</button>
+        </div>
       </form>
 
     </section>
@@ -82,7 +82,14 @@
     <section id="results-section">
       <h2>Résultats</h2>
       <div id="results-container">
-
+        <template id="carte">Carte Anime
+          <div class="contenu" id="titre">Titre</div>
+          <div class="contenu" id="image">Image</div>
+          <div class="contenu" id="synopsis">Synopsis</div>
+          <div class="contenu" id="categorie-genre">Catégorie ou Genre</div>
+          <div class="contenu" id="classement">(classement) 1</div>
+          <div class="contenu" id="nb-episodes">Nombre épisodes</div>
+        </template>
       </div>
     </section>
   </main>
