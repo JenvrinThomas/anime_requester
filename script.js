@@ -47,8 +47,7 @@ if (!API_KEY) {
 		.then(data => {
 			console.log("Données reçues :", data);
 
-			// Afficher les données dans le template
-			showContent();
+			afficherAnimes(data.data);
 
 		})
 		.catch(error => {
