@@ -13,10 +13,10 @@ function afficherAnimes(animes) {
 		clone.querySelector('#synopsis').textContent = anime.synopsis;
 		clone.querySelector('#categorie-genre').textContent = "Genres : ";
 		anime.genres.forEach(genre => {
-			clone.querySelector('#categorie-genre').textContent = clone.querySelector('#categorie-genre').textContent + genre ;
+			clone.querySelector('#categorie-genre').textContent = clone.querySelector('#categorie-genre').textContent + genre + " ";
 		});
 		clone.querySelector('#classement').textContent = "Rang " + anime.ranking;
-		clone.querySelector('#nb-episodes').textContent = anime.episodes + "épisodes";
+		clone.querySelector('#nb-episodes').textContent = anime.episodes + " épisode(s)";
 
 
 		container.appendChild(clone);
