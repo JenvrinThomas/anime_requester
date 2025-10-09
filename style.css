@@ -20,7 +20,7 @@
   background-color: var(--bg-color);
 }
 
-/* 🌞 & 🌙 Icônes Lune/Soleil */
+
 .btn-flottant .icon-theme {
   position: absolute; /* superposées */
   font-size: 20px;
@@ -65,7 +65,7 @@
   --footer-text: #ffffff;
 }
 
-/* 🌙 Thème sombre */
+
 [data-theme="dark"] {
   --bg-color: #212121;
   --text-color: #ececec;
@@ -93,7 +93,6 @@ body {
   padding: 0;
 }
 
-/* 🏷️ Header avec h1 centré */
 header {
   position: relative;
   background-color: var(--header-bg);
@@ -111,7 +110,7 @@ header h1 {
   transform: translate(-50%, -50%);
 }
 
-/* 📌 Contenu principal */
+
 main {
   max-width: 900px;
   margin: 2rem auto;
@@ -123,7 +122,7 @@ h2 {
   color: var(--text-color);
 }
 
-/* 🔍 Formulaire */
+
 #search-form {
   display: flex;
   flex-direction: column;
@@ -147,12 +146,22 @@ h2 {
   font-size: 1rem;
   background: var(--input-bg);
   color: var(--text-color);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 #search-form fieldset {
   border: 1px solid var(--form-border);
   border-radius: 8px;
   padding: 1rem;
+}
+#search-form select {
+  padding: 0.6rem;
+  border: 1px solid var(--input-border);
+  border-radius: 5px;
+  font-size: 1rem;
+  background: var(--input-bg);
+  color: var(--text-color);
 }
 
 #search-form legend {
@@ -163,7 +172,6 @@ h2 {
   margin-right: 0.5rem;
 }
 
-/* 🔘 Boutons du formulaire */
 .form-buttons {
   display: flex;
   gap: 1rem;
