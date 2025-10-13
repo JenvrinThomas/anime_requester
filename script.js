@@ -1,4 +1,5 @@
-const API_KEY = prompt("Entrez votre clé API RapidAPI :");
+// La clé API est mémorisée dans sessionStorage pour la session (sera perdue au refresh)
+// Ne pas demander immédiatement ; la demander au moment de la recherche si besoin.
 
 function afficherAnimes(animes) {
 	const container = document.getElementById('results-container');
@@ -75,9 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 
+		// récupérer la clé API depuis sessionStorage ou demander si absente
+		let API_KEY = sessionStorage.getItem('RAPIDAPI_KEY');
 		if (!API_KEY) {
-			alert('Vous devez fournir une clé API !');
-			return;
+			API_KEY = prompt('Entrez votre clé API RapidAPI :');
+			if (!API_KEY) {
+				alert('Vous devez fournir une clé API !');
+				return;
+			}
+			sessionStorage.setItem('RAPIDAPI_KEY', API_KEY);
 		}
 
 		const query = titreInput.value.trim();
@@ -102,6 +109,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		fetch(url, options)
 			.then(response => {
 				if (!response.ok) {
+					if (response.status === 401) {
+						// clé invalide -> supprimer la clé stockée pour permettre une nouvelle saisie
+						sessionStorage.removeItem('RAPIDAPI_KEY');
+					}
 					throw new Error(`Erreur HTTP : ${response.status}`);
 				}
 				return response.json();
