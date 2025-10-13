@@ -1,11 +1,10 @@
-// La clé API est mémorisée dans sessionStorage pour la session (sera perdue au refresh)
-// Ne pas demander immédiatement ; la demander au moment de la recherche si besoin.
+
 
 function afficherAnimes(animes) {
 	const container = document.getElementById('results-container');
 	const template = document.getElementById('carte');
 
-	// Ne pas supprimer le template : enlever uniquement les noeuds enfants qui ne sont pas le template
+
 	Array.from(container.children).forEach(child => {
 		if (child !== template) container.removeChild(child);
 	});
@@ -56,6 +55,7 @@ function afficherAnimes(animes) {
 document.addEventListener('DOMContentLoaded', () => {
 	const form = document.getElementById('search-form');
 	const titreInput = document.getElementById('anime-name');
+	const idInput = document.getElementById('anime-id');
 	const resultsContainer = document.getElementById('results-container');
 
 	if (!form) {
@@ -67,6 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
 		console.error('Champ #anime-name introuvable.');
 		return;
 	}
+		if (!idInput) {
+		console.error('Champ #anime-id introuvable.');
+		return;
+	}
 
 	if (!resultsContainer) {
 		console.error('Conteneur #results-container introuvable.');
@@ -76,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 
-		// récupérer la clé API depuis sessionStorage ou demander si absente
+	
 		let API_KEY = sessionStorage.getItem('RAPIDAPI_KEY');
 		if (!API_KEY) {
 			API_KEY = prompt('Entrez votre clé API RapidAPI :');
@@ -88,7 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		const query = titreInput.value.trim();
-		const url = 'https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=' + encodeURIComponent(query);
+		const query1 = idInput.value.trim();
+		const url = 'https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=' + encodeURIComponent(query)+'&id='+encodeURIComponent(query1);
 
 		const options = {
 			method: 'GET',
@@ -98,7 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		};
 
-		// Supprimer anciens résultats (on laisse le template) et afficher message temporaire
 		Array.from(resultsContainer.children).forEach(child => {
 			if (child.id !== 'carte') resultsContainer.removeChild(child);
 		});
@@ -110,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			.then(response => {
 				if (!response.ok) {
 					if (response.status === 401) {
-						// clé invalide -> supprimer la clé stockée pour permettre une nouvelle saisie
+
 						sessionStorage.removeItem('RAPIDAPI_KEY');
 					}
 					throw new Error(`Erreur HTTP : ${response.status}`);
@@ -123,7 +127,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 			.catch(error => {
 				console.error('Erreur lors de la requête :', error);
-				// remplacer le message de statut
 				Array.from(resultsContainer.querySelectorAll('p')).forEach(p => p.remove());
 				const err = document.createElement('p');
 				err.textContent = 'Erreur lors de la récupération des données.';
