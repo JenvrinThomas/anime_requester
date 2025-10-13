@@ -4,27 +4,48 @@ function afficherAnimes(animes) {
 	const container = document.getElementById('results-container');
 	const template = document.getElementById('carte');
 
-	container.innerHTML = '';
+	// Ne pas supprimer le template : enlever uniquement les noeuds enfants qui ne sont pas le template
+	Array.from(container.children).forEach(child => {
+		if (child !== template) container.removeChild(child);
+	});
 
 	if (!Array.isArray(animes) || animes.length === 0) {
-		container.textContent = 'Aucun résultat.';
+		const msg = document.createElement('p');
+		msg.textContent = 'Aucun résultat.';
+		container.appendChild(msg);
 		return;
 	}
 
 	animes.forEach(anime => {
 		const clone = template.content.cloneNode(true);
 
-		clone.querySelector('#titre').textContent = anime.title;
-		clone.querySelector('#image').src = anime.image;
-		clone.querySelector('#image').alt = anime.title;
-		clone.querySelector('#synopsis').textContent = anime.synopsis;
-		clone.querySelector('#categorie-genre').textContent = "Genres : ";
-		anime.genres.forEach(genre => {
-			clone.querySelector('#categorie-genre').textContent = clone.querySelector('#categorie-genre').textContent + genre + " ";
-		});
-		clone.querySelector('#classement').textContent = "Rang " + anime.ranking;
-		clone.querySelector('#nb-episodes').textContent = anime.episodes + " épisode(s)";
+		const titreEl = clone.querySelector('#titre');
+		if (titreEl) titreEl.textContent = anime.title || 'Titre inconnu';
 
+		const imageEl = clone.querySelector('#image');
+		if (imageEl) {
+			imageEl.src = anime.image || '';
+			imageEl.alt = anime.title || '';
+		}
+
+		const synEl = clone.querySelector('#synopsis');
+		if (synEl) synEl.textContent = anime.synopsis || '';
+
+		const catEl = clone.querySelector('#categorie-genre');
+		if (catEl) {
+			catEl.textContent = 'Genres : ';
+			if (Array.isArray(anime.genres) && anime.genres.length) {
+				catEl.textContent += anime.genres.join(', ');
+			} else {
+				catEl.textContent += 'N/A';
+			}
+		}
+
+		const rankEl = clone.querySelector('#classement');
+		if (rankEl) rankEl.textContent = 'Rang ' + (anime.rank || anime.ranking || 'N/A');
+
+		const nbEpEl = clone.querySelector('#nb-episodes');
+		if (nbEpEl) nbEpEl.textContent = ((anime.episodes != null) ? anime.episodes : 'N/A') + ' épisode(s)';
 
 		container.appendChild(clone);
 	});
@@ -32,10 +53,24 @@ function afficherAnimes(animes) {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-	const form = document.getElementById('submit');
+	const form = document.getElementById('search-form');
 	const titreInput = document.getElementById('anime-name');
-	const resultsContainer = document.getElementById('carte');
+	const resultsContainer = document.getElementById('results-container');
 
+	if (!form) {
+		console.error('Formulaire #search-form introuvable.');
+		return;
+	}
+
+	if (!titreInput) {
+		console.error('Champ #anime-name introuvable.');
+		return;
+	}
+
+	if (!resultsContainer) {
+		console.error('Conteneur #results-container introuvable.');
+		return;
+	}
 
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
@@ -56,8 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
 			}
 		};
 
-	
-		resultsContainer.textContent = 'Recherche en cours...';
+		// Supprimer anciens résultats (on laisse le template) et afficher message temporaire
+		Array.from(resultsContainer.children).forEach(child => {
+			if (child.id !== 'carte') resultsContainer.removeChild(child);
+		});
+		const status = document.createElement('p');
+		status.textContent = 'Recherche en cours...';
+		resultsContainer.appendChild(status);
 
 		fetch(url, options)
 			.then(response => {
@@ -72,7 +112,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			})
 			.catch(error => {
 				console.error('Erreur lors de la requête :', error);
-				resultsContainer.textContent = 'Erreur lors de la récupération des données.';
+				// remplacer le message de statut
+				Array.from(resultsContainer.querySelectorAll('p')).forEach(p => p.remove());
+				const err = document.createElement('p');
+				err.textContent = 'Erreur lors de la récupération des données.';
+				resultsContainer.appendChild(err);
 			});
 	});
 });
