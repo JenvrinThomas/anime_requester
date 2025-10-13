@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	} else if (searchType === 'id') {
 		url = `https://anime-db.p.rapidapi.com/anime/by-id/${encodeURIComponent(id)}`;
 	} else if (searchType === 'rank') {
-		url = `https://anime-db.p.rapidapi.com/anime?page=1&size=10&ranking=${encodeURIComponent(rank)}`;
+		url = `https://anime-db.p.rapidapi.com/anime/by-ranking/${encodeURIComponent(rank)}`;
 	}
 
 	const options = {
