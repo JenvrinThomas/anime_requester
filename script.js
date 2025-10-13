@@ -34,12 +34,8 @@ function afficherAnimes(animes) {
 document.addEventListener('DOMContentLoaded', () => {
 	const form = document.getElementById('submit');
 	const titreInput = document.getElementById('anime-name');
-	const resultsContainer = document.getElementById('results-container');
+	const resultsContainer = document.getElementById('carte');
 
-	if (!form || !titreInput || !resultsContainer) {
-		console.error('Éléments formulaire ou résultats manquants.');
-		return;
-	}
 
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
