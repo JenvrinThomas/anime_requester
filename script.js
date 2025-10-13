@@ -78,59 +78,69 @@ document.addEventListener('DOMContentLoaded', () => {
 	}
 
 	form.addEventListener('submit', (e) => {
-		e.preventDefault();
+	e.preventDefault();
 
-	
-		let API_KEY = sessionStorage.getItem('RAPIDAPI_KEY');
+	let API_KEY = sessionStorage.getItem('RAPIDAPI_KEY');
+	if (!API_KEY) {
+		API_KEY = prompt('Entrez votre clé API RapidAPI :');
 		if (!API_KEY) {
-			API_KEY = prompt('Entrez votre clé API RapidAPI :');
-			if (!API_KEY) {
-				alert('Vous devez fournir une clé API !');
-				return;
-			}
-			sessionStorage.setItem('RAPIDAPI_KEY', API_KEY);
+		alert('Vous devez fournir une clé API !');
+		return;
 		}
+		sessionStorage.setItem('RAPIDAPI_KEY', API_KEY);
+	}
 
-		const query = titreInput.value.trim();
-		const query1 = idInput.value.trim();
-		const url = 'https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=' + encodeURIComponent(query)+'&id='+encodeURIComponent(query1);
+	const searchType = document.getElementById('search-type').value;
+	const title = titreInput.value.trim();
+	const id = idInput.value.trim();
+	const rank = document.getElementById('anime-rank').value.trim();
 
-		const options = {
-			method: 'GET',
-			headers: {
-				'x-rapidapi-key': API_KEY,
-				'x-rapidapi-host': 'anime-db.p.rapidapi.com'
-			}
-		};
+	let url = '';
 
-		Array.from(resultsContainer.children).forEach(child => {
-			if (child.id !== 'carte') resultsContainer.removeChild(child);
-		});
-		const status = document.createElement('p');
-		status.textContent = 'Recherche en cours...';
-		resultsContainer.appendChild(status);
+	// ✅ Construire l’URL selon le type de recherche
+	if (searchType === 'title') {
+		url = `https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=${encodeURIComponent(title)}`;
+	} else if (searchType === 'id') {
+		url = `https://anime-db.p.rapidapi.com/anime/by-id/${encodeURIComponent(id)}`;
+	} else if (searchType === 'rank') {
+		url = `https://anime-db.p.rapidapi.com/anime?page=1&size=10&ranking=${encodeURIComponent(rank)}`;
+	}
 
-		fetch(url, options)
-			.then(response => {
-				if (!response.ok) {
-					if (response.status === 401) {
+	const options = {
+		method: 'GET',
+		headers: {
+		'x-rapidapi-key': API_KEY,
+		'x-rapidapi-host': 'anime-db.p.rapidapi.com'
+		}
+	};
 
-						sessionStorage.removeItem('RAPIDAPI_KEY');
-					}
-					throw new Error(`Erreur HTTP : ${response.status}`);
-				}
-				return response.json();
-			})
-			.then(data => {
-				console.log('Données reçues :', data);
-				afficherAnimes(data.data);
-			})
-			.catch(error => {
-				console.error('Erreur lors de la requête :', error);
-				Array.from(resultsContainer.querySelectorAll('p')).forEach(p => p.remove());
-				const err = document.createElement('p');
-				err.textContent = 'Erreur lors de la récupération des données.';
-				resultsContainer.appendChild(err);
-			});
+	// Nettoyage avant résultat
+	Array.from(resultsContainer.children).forEach(child => {
+		if (child.id !== 'carte') resultsContainer.removeChild(child);
 	});
+
+	const status = document.createElement('p');
+	status.textContent = 'Recherche en cours...';
+	resultsContainer.appendChild(status);
+
+	fetch(url, options)
+		.then(response => {
+		if (!response.ok) {
+			if (response.status === 401) sessionStorage.removeItem('RAPIDAPI_KEY');
+			throw new Error(`Erreur HTTP : ${response.status}`);
+		}
+		return response.json();
+		})
+		.then(data => {
+		console.log('Données reçues :', data);
+		// Certains endpoints renvoient un objet unique, pas data.data
+		const animeData = data.data || (Array.isArray(data) ? data : [data]);
+		afficherAnimes(animeData);
+		})
+		.catch(error => {
+		console.error('Erreur lors de la requête :', error);
+		resultsContainer.innerHTML = '<p>Erreur lors de la récupération des données.</p>';
+		});
+	});
+
 });
