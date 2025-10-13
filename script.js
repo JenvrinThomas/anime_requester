@@ -4,6 +4,13 @@ function afficherAnimes(animes) {
 	const container = document.getElementById('results-container');
 	const template = document.getElementById('carte');
 
+	container.innerHTML = '';
+
+	if (!Array.isArray(animes) || animes.length === 0) {
+		container.textContent = 'Aucun résultat.';
+		return;
+	}
+
 	animes.forEach(anime => {
 		const clone = template.content.cloneNode(true);
 
@@ -24,35 +31,52 @@ function afficherAnimes(animes) {
 }
 
 
-if (!API_KEY) {
-	alert("Vous devez fournir une clé API !");
-} else {
-	var url = 'https://anime-db.p.rapidapi.com/anime?page=1&size=10';
+document.addEventListener('DOMContentLoaded', () => {
+	const form = document.getElementById('submit');
+	const titreInput = document.getElementById('anime-name');
+	const resultsContainer = document.getElementById('results-container');
 
-	const options = {
-		method: 'GET',
-		headers: {
-			'x-rapidapi-key': API_KEY,
-			'x-rapidapi-host': 'anime-db.p.rapidapi.com'
+	if (!form || !titreInput || !resultsContainer) {
+		console.error('Éléments formulaire ou résultats manquants.');
+		return;
+	}
+
+	form.addEventListener('submit', (e) => {
+		e.preventDefault();
+
+		if (!API_KEY) {
+			alert('Vous devez fournir une clé API !');
+			return;
 		}
-	};
 
-	fetch(url, options)
-		.then(response => {
-			if (!response.ok) {
-				throw new Error(`Erreur HTTP : ${response.status}`);
+		const query = titreInput.value.trim();
+		const url = 'https://anime-db.p.rapidapi.com/anime?page=1&size=10&search=' + encodeURIComponent(query);
+
+		const options = {
+			method: 'GET',
+			headers: {
+				'x-rapidapi-key': API_KEY,
+				'x-rapidapi-host': 'anime-db.p.rapidapi.com'
 			}
-			return response.json();
-		})
-		.then(data => {
-			console.log("Données reçues :", data);
+		};
 
-			afficherAnimes(data.data);
+	
+		resultsContainer.textContent = 'Recherche en cours...';
 
-		})
-		.catch(error => {
-			console.error("Erreur lors de la requête :", error);
-		});
-
-
-}
+		fetch(url, options)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error(`Erreur HTTP : ${response.status}`);
+				}
+				return response.json();
+			})
+			.then(data => {
+				console.log('Données reçues :', data);
+				afficherAnimes(data.data);
+			})
+			.catch(error => {
+				console.error('Erreur lors de la requête :', error);
+				resultsContainer.textContent = 'Erreur lors de la récupération des données.';
+			});
+	});
+});
