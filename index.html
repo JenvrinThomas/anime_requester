@@ -19,9 +19,9 @@
   </header>
 
   <main>
-
     <section id="search-section">
       <h2>Rechercher un anime</h2>
+
       <form id="search-form">
         <label for="search-type">Rechercher par :</label>
         <select id="search-type" name="search-type">
@@ -30,60 +30,33 @@
           <option value="rank">Classement</option>
         </select>
 
-
         <div id="input-title" class="input-group">
           <input type="text" id="anime-name" name="anime-name" placeholder="Ex : Naruto">
         </div>
 
         <div id="input-id" class="input-group" style="display:none;">
-          <input type="number" id="anime-id" name="anime-id" min='0' placeholder="Ex : 123">
+          <input type="number" id="anime-id" name="anime-id" min="0" placeholder="Ex : 123">
         </div>
 
         <div id="input-rank" class="input-group" style="display:none;">
-          <input type="number" id="anime-rank" name="anime-rank" min='0' placeholder="Ex : 1">
+          <input type="number" id="anime-rank" name="anime-rank" min="0" placeholder="Ex : 1">
         </div>
 
 
-        <fieldset>
-          <legend>Genres :</legend>
-
-          <label for="genre-action">
-            <input type="checkbox" id="genre-action" name="genre" value="action"> Action
-          </label>
-
-          <label for="genre-comedy">
-            <input type="checkbox" id="genre-comedy" name="genre" value="comedy"> Comédie
-          </label>
-
-          <label for="genre-drama">
-            <input type="checkbox" id="genre-drama" name="genre" value="drama"> Drame
-          </label>
-
-          <label for="genre-fantasy">
-            <input type="checkbox" id="genre-fantasy" name="genre" value="fantasy"> Fantastique
-          </label>
-
-          <label for="genre-romance">
-            <input type="checkbox" id="genre-romance" name="genre" value="romance"> Romance
-          </label>
-        </fieldset>
-
-
+        <div id="genre-dropdown"></div>
 
         <div class="form-buttons">
           <button type="submit">Rechercher</button>
           <button type="reset">Réinitialiser</button>
         </div>
       </form>
-
     </section>
-
 
     <section id="results-section">
       <h2>Résultats</h2>
       <div id="results-container">
         <template id="carte">
-          <div>
+          <div class="card">
             <div class="contenu">
               <h3 id="titre"></h3>
             </div>
@@ -113,5 +86,4 @@
   <script src="script.js" type="module"></script>
   <script src="darkmode.js"></script>
 </body>
-
 </html>
