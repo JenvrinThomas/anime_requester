@@ -20,9 +20,8 @@
   background-color: var(--bg-color);
 }
 
-
 .btn-flottant .icon-theme {
-  position: absolute; /* superposées */
+  position: absolute;
   font-size: 20px;
   color: var(--text-color);
   transition: all 0.4s ease;
@@ -39,12 +38,11 @@
   transform: rotate(-90deg) scale(0);
 }
 
-/* Thème sombre : soleil visible, lune cachée */
+/* Thème sombre */
 [data-theme="dark"] .btn-flottant .fa-moon {
   opacity: 0;
   transform: rotate(90deg) scale(0);
 }
-
 [data-theme="dark"] .btn-flottant .fa-sun {
   opacity: 1;
   transform: rotate(0deg) scale(1);
@@ -65,7 +63,7 @@
   --footer-text: #ffffff;
 }
 
-
+/* 🌚 Thème sombre */
 [data-theme="dark"] {
   --bg-color: #212121;
   --text-color: #ececec;
@@ -86,13 +84,11 @@ html {
   color: var(--text-color);
   transition: background-color 0.3s, color 0.3s;
 }
-
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
-
 header {
   position: relative;
   background-color: var(--header-bg);
@@ -100,7 +96,6 @@ header {
   padding: 2rem;
   text-align: center;
 }
-
 header h1 {
   margin: 0;
   font-size: 1.8rem;
@@ -110,18 +105,15 @@ header h1 {
   transform: translate(-50%, -50%);
 }
 
-
 main {
   max-width: 900px;
   margin: 2rem auto;
   padding: 1rem;
 }
-
 h2 {
   margin-bottom: 1rem;
   color: var(--text-color);
 }
-
 
 #search-form {
   display: flex;
@@ -133,11 +125,9 @@ h2 {
   border: 1px solid var(--form-border);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-
 #search-form label {
   font-weight: bold;
 }
-
 #search-form input[type="text"],
 #search-form input[type="number"] {
   padding: 0.6rem;
@@ -149,12 +139,6 @@ h2 {
   width: 100%;
   box-sizing: border-box;
 }
-
-#search-form fieldset {
-  border: 1px solid var(--form-border);
-  border-radius: 8px;
-  padding: 1rem;
-}
 #search-form select {
   padding: 0.6rem;
   border: 1px solid var(--input-border);
@@ -163,21 +147,11 @@ h2 {
   background: var(--input-bg);
   color: var(--text-color);
 }
-
-#search-form legend {
-  font-weight: bold;
-}
-
-#search-form label input {
-  margin-right: 0.5rem;
-}
-
 .form-buttons {
   display: flex;
   gap: 1rem;
   justify-content: flex-start;
 }
-
 .form-buttons button {
   padding: 0.7rem 1.2rem;
   border: none;
@@ -186,45 +160,35 @@ h2 {
   cursor: pointer;
   transition: background 0.3s;
 }
-
 .form-buttons button[type="submit"] {
   background-color: #3498db;
   color: white;
 }
-
 .form-buttons button[type="submit"]:hover {
   background-color: #2980b9;
 }
-
 .form-buttons button[type="reset"] {
   background-color: #e74c3c;
   color: white;
 }
-
 .form-buttons button[type="reset"]:hover {
   background-color: #c0392b;
 }
 
-/* 📊 Résultats */
-#results-section {
-  margin-top: 2rem;
-}
-
+/* Résultats */
 #results-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1rem;
 }
-
-.carte{
-  align-self: center;
-  justify-self: center;
-  border: 2px solid black;
-  border-radius: 8px;
-  padding: 1em;
+.card {
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* 📍 Footer */
+/* Footer */
 footer {
   text-align: center;
   padding: 1rem;
@@ -233,42 +197,35 @@ footer {
   color: var(--footer-text);
 }
 
-/* 📱 Responsive */
+/* Liste déroulante genres */
+#genre-dropdown {
+  position: relative;
+  display: inline-block;
+}
+#genre-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: absolute;
+  background: var(--form-bg);
+  border: 1px solid var(--form-border);
+  padding: 8px;
+  border-radius: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+}
+#genre-list.hidden {
+  display: none;
+}
+#genre-list label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Responsive */
 @media (max-width: 600px) {
-  #search-form {
-    padding: 1rem;
-  }
-
-  .form-buttons {
-    flex-direction: column;
-    align-items: stretch;
-  }
-}
-.contenu{
-  justify-self: center;
-}
-
-#titre{
-  font-size: 2.5em;
-  font-family: rockwell;
-}
-
-#synopsis{
-  font-size: 1.5em;
-  font-family: candara;
-}
-
-#categorie-genre{
-  font-size: 1.5em;
-  font-family: verdana;
-}
-
-#classement{
-  font-size: 3em;
-  font-family: impact;
-}
-
-#nb-episodes{
-  font-size: 1.5em;
-  font-family: arial;
+  #search-form { padding: 1rem; }
+  .form-buttons { flex-direction: column; align-items: stretch; }
 }
