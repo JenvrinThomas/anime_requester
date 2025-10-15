@@ -1,18 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log('✅ DOM chargé.');
 
- 
-
-
-    // Aucun résultat
-    if (!Array.isArray(animes) || animes.length === 0) {
-      const msg = document.createElement('p');
-      msg.textContent = 'Aucun résultat.';
-      container.appendChild(msg);
-      return;
-    }
-
-
   // === CHARGER LES GENRES ===
   async function chargerGenres() {
     let API_KEY = sessionStorage.getItem('RAPIDAPI_KEY') || prompt('Entrez votre clé API RapidAPI :');
