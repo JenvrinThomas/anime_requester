@@ -58,15 +58,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   animes.forEach(anime => {
     const clone = template.content.cloneNode(true);
-    clone.querySelector('#titre').textContent = anime.title || 'Titre inconnu';
-    const img = clone.querySelector('#image');
-    img.src = anime.image || '';
-    img.alt = anime.title || '';
-    clone.querySelector('#synopsis').textContent = anime.synopsis || 'Aucun synopsis disponible.';
-    clone.querySelector('#categorie-genre').textContent = 'Genres : ' + (anime.genres?.join(', ') || 'N/A');
-    clone.querySelector('#classement').textContent = 'Rang ' + (anime.rank || anime.ranking || 'N/A');
-    clone.querySelector('#nb-episodes').textContent = (anime.episodes ?? 'N/A') + ' épisode(s)';
-    container.appendChild(clone);
+  clone.querySelector('.titre').textContent = anime.title || 'Titre inconnu';
+  clone.querySelector('.image').src = anime.image || '';
+  clone.querySelector('.image').alt = anime.title || '';
+  clone.querySelector('.synopsis').textContent = anime.synopsis || 'Aucun synopsis disponible.';
+  clone.querySelector('.categorie-genre').textContent = 'Genres : ' + (anime.genres?.join(', ') || 'N/A');
+  clone.querySelector('.classement').textContent = 'Rang ' + (anime.rank || anime.ranking || 'N/A');
+  clone.querySelector('.nb-episodes').textContent = (anime.episodes ?? 'N/A') + ' épisode(s)';
+
+  container.appendChild(clone);
   });
 }
   // === AFFICHER LES GENRES ===
