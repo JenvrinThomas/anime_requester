@@ -2,20 +2,42 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('✅ DOM chargé.');
 
   // === AFFICHER LES ANIMES ===
-  function afficherAnimes(animes) {
-    const container = document.getElementById('results-container');
-    const template = document.getElementById('carte');
+ function afficherAnimes(animes) {
+  const container = document.getElementById('results-container');
+  const template = document.getElementById('carte');
 
-    if (!template) {
-      console.error("❌ Template #carte introuvable dans le DOM !");
-      container.innerHTML = '<p>Erreur interne : template manquant.</p>';
-      return;
-    }
+  if (!template) {
+    console.error('❌ Template #carte introuvable dans le DOM');
+    container.innerHTML = '<p>Erreur interne : template manquant.</p>';
+    return;
+  }
 
-    // Nettoyage des anciens résultats
-    Array.from(container.children).forEach(child => {
-      if (child !== template) container.removeChild(child);
-    });
+  // Nettoyage des anciens résultats
+  Array.from(container.children).forEach(child => {
+    if (child !== template) container.removeChild(child);
+  });
+
+  if (!Array.isArray(animes) || animes.length === 0) {
+    const msg = document.createElement('p');
+    msg.textContent = 'Aucun résultat.';
+    container.appendChild(msg);
+    return;
+  }
+
+  animes.forEach(anime => {
+    const clone = template.content.cloneNode(true);
+    clone.querySelector('#titre').textContent = anime.title || 'Titre inconnu';
+    const img = clone.querySelector('#image');
+    img.src = anime.image || '';
+    img.alt = anime.title || '';
+    clone.querySelector('#synopsis').textContent = anime.synopsis || 'Aucun synopsis disponible.';
+    clone.querySelector('#categorie-genre').textContent = 'Genres : ' + (anime.genres?.join(', ') || 'N/A');
+    clone.querySelector('#classement').textContent = 'Rang ' + (anime.rank || anime.ranking || 'N/A');
+    clone.querySelector('#nb-episodes').textContent = (anime.episodes ?? 'N/A') + ' épisode(s)';
+    container.appendChild(clone);
+  });
+}
+
 
     // Aucun résultat
     if (!Array.isArray(animes) || animes.length === 0) {
@@ -25,23 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Création des cartes
-    animes.forEach(anime => {
-      const clone = template.content.cloneNode(true);
-
-      clone.querySelector('#titre').textContent = anime.title || 'Titre inconnu';
-      const img = clone.querySelector('#image');
-      img.src = anime.image || '';
-      img.alt = anime.title || '';
-
-      clone.querySelector('#synopsis').textContent = anime.synopsis || 'Aucun synopsis disponible.';
-      clone.querySelector('#categorie-genre').textContent = 'Genres : ' + (anime.genres?.join(', ') || 'N/A');
-      clone.querySelector('#classement').textContent = 'Rang ' + (anime.rank || anime.ranking || 'N/A');
-      clone.querySelector('#nb-episodes').textContent = (anime.episodes ?? 'N/A') + ' épisode(s)';
-
-      container.appendChild(clone);
-    });
-  }
 
   // === CHARGER LES GENRES ===
   async function chargerGenres() {
@@ -144,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     resultsContainer.innerHTML = '<p>🔍 Recherche en cours...</p>';
-    console.log('➡️ Requête envoyée à :', url);
+    console.log(' Requête envoyée à :', url);
 
     fetch(url, options)
       .then(res => {
@@ -152,13 +157,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return res.json();
       })
       .then(data => {
-        console.log('✅ Données reçues :', data);
+        console.log(' Données reçues :', data);
         const animeData = data.data || (Array.isArray(data) ? data : [data]);
         afficherAnimes(animeData);
       })
       .catch(err => {
         console.error('Erreur lors de la requête :', err);
-        resultsContainer.innerHTML = '<p>❌ Erreur lors de la récupération des données.</p>';
+        resultsContainer.innerHTML = '<p> Erreur lors de la récupération des données.</p>';
       });
   });
 
