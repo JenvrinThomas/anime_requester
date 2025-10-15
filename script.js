@@ -74,7 +74,7 @@ function afficherGenres(genres) {
   });
 }
 
-// 🔹 Gestion du formulaire
+// Listeners du formulaire
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('search-form');
   const titreInput = document.getElementById('anime-name');
