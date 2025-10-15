@@ -23,17 +23,26 @@
     <section id="search-section">
       <h2>Rechercher un anime</h2>
       <form id="search-form">
+        <label for="search-type">Rechercher par :</label>
+        <select id="search-type" name="search-type">
+          <option value="title">Titre</option>
+          <option value="id">ID</option>
+          <option value="rank">Classement</option>
+        </select>
 
-        <label for="anime-name">Nom :</label>
-        <input type="text" id="anime-name" name="anime-name" placeholder="Ex: Naruto">
 
+        <div id="input-title" class="input-group">
+          <input type="text" id="anime-name" name="anime-name" placeholder="Ex : Naruto">
+        </div>
 
-        <label for="anime-id">ID :</label>
-        <input type="number" id="anime-id" name="anime-id" placeholder="Ex: 123">
+        <div id="input-id" class="input-group" style="display:none;">
+          <input type="number" id="anime-id" name="anime-id" min='0' placeholder="Ex : 123">
+        </div>
 
+        <div id="input-rank" class="input-group" style="display:none;">
+          <input type="number" id="anime-rank" name="anime-rank" min='0' placeholder="Ex : 1">
+        </div>
 
-        <label for="anime-rank">Classement :</label>
-        <input type="number" id="anime-rank" name="anime-rank" placeholder="Ex: 1">
 
         <fieldset>
           <legend>Genres :</legend>
@@ -73,7 +82,26 @@
     <section id="results-section">
       <h2>Résultats</h2>
       <div id="results-container">
-
+        <template id="carte">
+          <div>
+            <div class="contenu">
+              <h3 id="titre"></h3>
+            </div>
+            <img id="image" src="" alt="">
+            <div class="contenu">
+              <p id="synopsis"></p>
+            </div>
+            <div class="contenu">
+              <p id="categorie-genre"></p>
+            </div>
+            <div class="contenu">
+              <p id="classement"></p>
+            </div>
+            <div class="contenu">
+              <p id="nb-episodes"></p>
+            </div>
+          </div>
+        </template>
       </div>
     </section>
   </main>

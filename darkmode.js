@@ -26,3 +26,11 @@
   });
 
 })();
+
+const select = document.getElementById('search-type');
+  const inputs = document.querySelectorAll('.input-group');
+
+  select.addEventListener('change', () => {
+    inputs.forEach(div => div.style.display = 'none'); 
+    document.getElementById('input-' + select.value).style.display = 'block'; 
+  });
