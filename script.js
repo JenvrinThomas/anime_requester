@@ -1,55 +1,4 @@
 
-async function chargerGenres() {
-    let API_KEY = sessionStorage.getItem('RAPIDAPI_KEY') || prompt('Entrez votre clé API RapidAPI :');
-    if (!API_KEY) {
-      alert('Vous devez fournir une clé API !');
-      return;
-    }
-    sessionStorage.setItem('RAPIDAPI_KEY', API_KEY);
-
-    const url = 'https://anime-db.p.rapidapi.com/anime?page=1&size=100';
-    const options = {
-      method: 'GET',
-      headers: {
-        'x-rapidapi-key': API_KEY,
-        'x-rapidapi-host': 'anime-db.p.rapidapi.com'
-      }
-    };
-
-    try {
-      const response = await fetch(url, options);
-      if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
-      const data = await response.json();
-      const animes = data.data || [];
-      const genres = new Set();
-      animes.forEach(a => a.genres?.forEach(g => genres.add(g)));
-      afficherGenres(Array.from(genres).sort());
-    } catch (err) {
-      console.error('Erreur chargement genres :', err);
-      const genreContainer = document.getElementById('genre-dropdown');
-      genreContainer.innerHTML = '<p>Impossible de charger les genres.</p>';
-    }
-  }
-
-  function afficherGenres(genres) {
-    const genreContainer = document.getElementById('genre-dropdown');
-    genreContainer.innerHTML = `
-      <button id="toggle-genre-list" type="button">Sélectionner les genres ▼</button>
-      <div id="genre-list" class="genre-list hidden"></div>
-    `;
-
-    const genreList = genreContainer.querySelector('#genre-list');
-    genres.forEach(genre => {
-      const label = document.createElement('label');
-      label.innerHTML = `<input type="checkbox" name="genre" value="${genre}"> ${genre}`;
-      genreList.appendChild(label);
-    });
-
-    genreContainer.querySelector('#toggle-genre-list').addEventListener('click', () => {
-      genreList.classList.toggle('hidden');
-    });
-  }
-
 function afficherAnimes(animes) {
 	const container = document.getElementById('results-container');
 	const template = document.getElementById('carte');
@@ -202,6 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
-  chargerGenres();
+
 
 });
